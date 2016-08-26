@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+
+from motors.srv import *
+import rospy
+
+def handle_two_motors(req):
+    print "Returning [%s + %s = %s]"%(req.a, req.b, (req.a + req.b))
+    return AddTwoIntsResponse(req.a + req.b)
+
+def two_motors_server():
+    rospy.init_node('two_motors__server')
+    s = rospy.Service('motors', pins, handle_two_motors)
+    print "Ready to add two ints."
+    rospy.spin()
+
+if __name__ == "__main__":
+    two_motors_server()
